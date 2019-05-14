@@ -21,16 +21,17 @@ public class Node : MonoBehaviour
 
     void OnMouseDown()
     {
-        if(turret != null)
+        if(buildManager != null)
         {
-            Debug.Log("Can't build there!");
-        }
-        else
-        {
-            if(buildManager != null)
+            // Only build a turret if the node doesn't already have one and the mouse pointer isn't over a UI element.
+            if(turret == null && EventSystem.current.IsPointerOverGameObject() == false)
             {
                 GameObject turret = buildManager.GetTurretToBuild();
                 this.turret = (GameObject)Instantiate(turret, transform.position + turretOffset, transform.rotation);
+            }
+            else
+            {
+                Debug.Log("Can't build there!");
             }
         }
     }
